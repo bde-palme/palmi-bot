@@ -2,7 +2,15 @@
 
 ## Goal of this bot
 
-blahblah
+- manage deadlines of projects
+- manage categories (creating all the needed channels) and setting the permissions
+  - modular creation of the channels (selecting all the needed channels)
+- communicate with the Google Calendar of the association
+  - adding events, depending on the user for the needed tasks
+
+### TODOs
+
+- [ ] todo1 
 
 ## Installation  requierements
 
