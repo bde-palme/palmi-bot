@@ -3,8 +3,16 @@
 import config
 import discord
 
-def main():
-    print("Hello Bot !")
+# Bot instance creation
+bot = discord.Client(intents=None)
 
-if __name__ == '__main__':
-    main()
+# functions
+
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
+    print('------')
+
+# run bot
+bot.run(config.DISCORD_TOKEN)
+
