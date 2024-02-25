@@ -1,35 +1,30 @@
 #! /usr/bin/env python
 
-import config
-import discord
+import config, bot_params
 from discord.ext import commands
 
-# Intents
-intents = discord.Intents()
-intents.messages = True
-intents.guilds = True
-intents.message_content = True
-intents.reactions = True
+# Bot class
+class PalmiBot(commands.Bot):
+    """ 
+    PalmiBot class
+    """
+    def __init__(self, command_prefix, intents):
+        super().__init__(command_prefix, intents=intents)
+
+    async def on_ready(self):
+        print(f' [+] Logged in as {self.user} (ID: {self.user.id})')
+
+    async def on_message(self, message):
+        print(f'USER - {message.author} texted - {message.content}')
+        await self.process_commands(message)
+
+    async def setup_hook(self):
+        for cog in bot_params.COGS:
+            await self.load_extension(f'cogs.{cog}')
+        print(f' [+] Loaded cogs: {bot_params.COGS}')
+
 
 # Bot instance creation
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = PalmiBot(command_prefix=bot_params.COMMAND_PREFIX, intents=bot_params.INTENTS)
 
-# functions
-
-@bot.event
-async def on_ready():
-    print(f'----\n [+] Logged in as {bot.user} (ID: {bot.user.id})\n----')
-
-# @bot.event
-# async def on_message(message):
-#     print(f'USER - {message.author} texted - {message.content}')
-#     await bot.process_commands(message)
-
-@bot.command()
-async def ping(ctx):
-    print(f' [+] Received ping command from {ctx.author}')
-    await ctx.reply(f'Pong!')
-
-# run bot
 bot.run(config.DISCORD_TOKEN)
-
