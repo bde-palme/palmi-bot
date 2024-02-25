@@ -47,5 +47,11 @@ python3 -m pip install -r requirements.txt
 The file `config.py` will contain all the private tokens and informations needed to run your bot. **You have to define it yourself**. Its content is the following :
 
 ```python
-VAR1 = "<SECRET_TOKEN>"
+# --------------------------------------------------------------
+# FILE config.py
+# contains all needed secret data to operate properly
+# --------------------------------------------------------------
+
+DISCORD_TOKEN="<SECRET_TOKEN>" 
+GOOGLE_API_FILE="<PATH_TO_FILE>"  
 ```
