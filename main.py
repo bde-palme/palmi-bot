@@ -1,20 +1,25 @@
 #! /usr/bin/env python
 
-import config, bot_params
+import config
+import bot_params
 from discord.ext import commands
+from discord import Intents, Message
 
 # Bot class
+
+
 class PalmiBot(commands.Bot):
     """ 
     PalmiBot class
     """
-    def __init__(self, command_prefix, intents):
+
+    def __init__(self, command_prefix: str, intents: Intents):
         super().__init__(command_prefix, intents=intents)
 
     async def on_ready(self):
         print(f' [+] Logged in as {self.user} (ID: {self.user.id})')
 
-    async def on_message(self, message):
+    async def on_message(self, message: Message):
         print(f'USER - {message.author} texted - {message.content}')
         await self.process_commands(message)
 
@@ -25,6 +30,7 @@ class PalmiBot(commands.Bot):
 
 
 # Bot instance creation
-bot = PalmiBot(command_prefix=bot_params.COMMAND_PREFIX, intents=bot_params.INTENTS)
+bot = PalmiBot(command_prefix=bot_params.COMMAND_PREFIX,
+               intents=bot_params.INTENTS)
 
 bot.run(config.DISCORD_TOKEN)
